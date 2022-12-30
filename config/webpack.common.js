@@ -17,6 +17,18 @@ module.exports = {
         use: 'babel-loader',
         exclude: /node_modules/,
       },
+      {
+        test: /.(jpe?g|png|gif)$/i,
+        use: [
+          {
+            loader: "url-loader",
+            options: {
+              limit: 8192,
+              name: "/public/img/[name].[hash:8].[ext]"
+            }
+          }
+        ]
+      }
     ],
   },
   //설정 파일에 설치한 플러그인을 임포트한 후에, plugins 속성에 임포트한 프로그인을 추가
