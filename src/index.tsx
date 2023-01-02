@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client';
-import { theme } from '@/Theme/theme';
+import { theme } from '@/theme/theme';
 import { ThemeProvider } from 'styled-components';
 import App from './App';
 

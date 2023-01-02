@@ -1,9 +1,15 @@
 import React from 'react';
-import { PageSet } from '@/Common/PageSet';
+import { PageSet } from '@/common/PageSet';
 
-const PageBack = ({ children }: { children: React.ReactNode }) => {
+const PageBack = ({
+  children,
+  back,
+}: {
+  children: React.ReactNode;
+  back: string;
+}) => {
   return (
-    <PageSet className='face-back'>
+    <PageSet className={back}>
       {children !== null ? children : undefined}
     </PageSet>
   );

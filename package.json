@@ -23,6 +23,7 @@
   "homepage": "https://github.com/YANGSANGHEE/myportfolio#readme",
   "dependencies": {
     "@types/react-redux": "^7.1.24",
+    "axios": "^1.2.2",
     "package": "^1.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

@@ -1,8 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Londrina+Shadow&display=swap');
+@import url(//db.onlinewebfonts.com/c/3e7c392e6314d3043afade17def0975c?family=SegoePrint);
+
+@font-face {
+  font-family: 'SDMiSaeng';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/SDMiSaeng.woff')
+    format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Cafe24Simplehae';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Simplehae.woff')
+    format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Walter+Turncoat&display=swap');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   /* border: 1px solid red; */
+  font-size: 10px;
 }
 
 body {

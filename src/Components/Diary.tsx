@@ -1,11 +1,14 @@
-import React, { useRef, useCallback, useState } from 'react';
+import React, { useRef, useCallback, useState, useEffect } from 'react';
 import styled from 'styled-components';
-import PageFront from './Page_front';
-import PageBack from './Page_back';
-import e from 'express';
+import PageFront from '@/components/Page_front';
+import PageBack from '@/components/Page_back';
+import PageOne from './Page/Page_1';
+import PageTwo from './Page/Page_2';
+import PageThree from './Page/Page_3';
+import PageFour from './Page/Page_4';
+import PageFive from './Page/Page_5';
 
 const DiarySet = styled.div`
-  ${({ theme }) => theme.flexSet.flexCenterrow}
   width: 573px;
   height: 806px;
   position: relative;
@@ -28,11 +31,8 @@ const DiarySet = styled.div`
     height: 99%;
     background: url(/img/paper.png) no-repeat;
     background-size: cover;
-    padding: 5%;
     overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 5%;
   }
   .face-front {
     box-shadow: inset 3px 0px 20px -7px black;
@@ -63,118 +63,114 @@ const DiarySet = styled.div`
     border-radius: 10px;
     box-shadow: 5px 10px 10px 0px rgba(0, 0, 0, 0.25);
   }
-  .trnsf {
+  &.trnsf {
     transform: translateX(16vw);
   }
-  .trnsf-reset {
+  &.trnsf-reset {
     transform: translateX(0vw);
   }
 `;
 // 다이어리 스타일링
 
 const Diary = () => {
-  const [addclass, setClass] = useState<string>('trsf');
+  const [back, setBack] = useState<string>('face-back');
+  const [front, setFront] = useState<string>('face-front');
+  const [tclass, settClass] = useState<string>('');
   const [portada, setPortada] = useState<string>('portada');
   const bookCon = useRef(null);
   const book = useRef<null[] | HTMLDivElement[]>([]);
   // 돔 제어용 useRef
 
-  // console.log(document.getElementsByClassName('book-con'));
-  console.log(book.current);
+  useEffect(() => {
+    const filp: HTMLCollectionOf<Element> | any =
+      document.getElementsByClassName('book-con');
+    const bookEle: any[] | HTMLDivElement[] = book.current;
 
-  const Filps = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    const filp = document.getElementsByClassName('book-con');
-    const bookEle = book.current;
-
-    let conZindex = 2; // 고정인덱스
-    let customZindex = 1; // 커스텀인덱스
+    let conZindex: number = 2; // 고정인덱스
+    let customZindex: number = 1; // 커스텀인덱스
 
     for (let i = 0; i < bookEle.length; i++) {
-      bookEle[i].style.zIndex = customZindex;
+      bookEle[i].style.zIndex = String(customZindex);
       customZindex--;
 
-      let target = e.target;
-      let unoThis = e.currentTarget;
+      bookEle[i].addEventListener(
+        'click',
+        (e: React.MouseEvent<HTMLDivElement>) => {
+          let target: EventTarget | HTMLDivElement | any = e.target;
+          let unoThis: (EventTarget & HTMLDivElement) | any = e.currentTarget;
 
-      if (target.getAttribute('class') === 'face-front') {
-        unoThis.style.zIndex = conZindex;
-        conZindex += 20;
+          unoThis.style.zIndex = conZindex;
+          conZindex++;
 
-        setTimeout(() => {
-          unoThis.style.transform = 'rotateY(-180deg)';
-        }, 500);
-      }
+          if (target.classList.contains('face-front')) {
+            unoThis.style.zIndex = String(conZindex);
+            conZindex += 20;
 
-      if (target.getAttribute('class') == 'face-back') {
-        unoThis.style.zIndex = conZindex;
-        conZindex += 20;
+            setTimeout(() => {
+              unoThis.style.transform = 'rotateY(-180deg)';
+            }, 500);
+          }
 
-        setTimeout(() => {
-          unoThis.style.transform = 'rotateY(0deg)';
-        }, 500);
-      }
+          if (target.classList.contains('face-back')) {
+            unoThis.style.zIndex = String(conZindex);
+            conZindex += 20;
 
-      if (target.getAttribute('id') == 'portada') {
-        filp.classList.remove('trnsf-reset');
-        filp.classList.add('trnsf');
-      }
-      if (target.getAttribute('id') == 'trsf') {
-        filp.classList.remove('trnsf');
-        filp.classList.add('trnsf-reset');
-      }
+            setTimeout(() => {
+              unoThis.style.transform = 'rotateY(0deg)';
+            }, 500);
+          }
+
+          if (target.getAttribute('id') == 'portada') {
+            settClass('');
+            settClass('trnsf');
+          }
+          if (target.getAttribute('id') == 'trsf') {
+            settClass('');
+            settClass('trnsf-reset');
+          }
+        }
+      );
     }
   }, []);
+
   return (
-    <DiarySet className='book-con' ref={bookCon}>
-      <div
-        className='book'
-        onClick={Filps}
-        ref={(elem) => (book.current[0] = elem)}>
-        <div className='face-front' id={portada}></div>
+    <DiarySet className={`book-con ${tclass}`} ref={bookCon}>
+      <div className='book' ref={(elem) => (book.current[0] = elem)}>
+        <div className={front} id={portada}></div>
         {/* 앞 표지 */}
-        <div className='face-back' id={addclass}></div>
+        <div className={back} id={'trsf'}>
+          <PageOne />
+        </div>
       </div>
 
       {/* 내용물 */}
-      <div
-        className='book'
-        onClick={Filps}
-        ref={(elem) => (book.current[1] = elem)}>
-        <PageFront>
+      <div className='book' ref={(elem) => (book.current[1] = elem)}>
+        <PageFront front={front}>
+          <PageTwo />
+        </PageFront>
+        <PageBack back={back}>
+          <PageThree />
+        </PageBack>
+      </div>
+      <div className='book' ref={(elem) => (book.current[2] = elem)}>
+        <PageFront front={front}>
           <h1>하이</h1>
         </PageFront>
-        <PageBack>
+        <PageBack back={back}>
+          <PageFour />
+        </PageBack>
+      </div>
+      <div className='book' ref={(elem) => (book.current[3] = elem)}>
+        <PageFront front={front}>
+          <PageFive />
+        </PageFront>
+        <PageBack back={back}>
           <h1>하이</h1>
         </PageBack>
       </div>
-      <div
-        className='book'
-        onClick={Filps}
-        ref={(elem) => (book.current[2] = elem)}>
-        <PageFront>
-          <h1>하이</h1>
-        </PageFront>
-        <PageBack>
-          <h1>하이</h1>
-        </PageBack>
-      </div>
-      <div
-        className='book'
-        onClick={Filps}
-        ref={(elem) => (book.current[3] = elem)}>
-        <PageFront>
-          <h1>하이</h1>
-        </PageFront>
-        <PageBack>
-          <h1>하이</h1>
-        </PageBack>
-      </div>
-      <div
-        className='book'
-        onClick={Filps}
-        ref={(elem) => (book.current[4] = elem)}>
-        <PageFront>
-          <h1>악악</h1>
+      <div className='book' ref={(elem) => (book.current[4] = elem)}>
+        <PageFront front={front}>
+          <h1>리액트로 바꿈 ~</h1>
         </PageFront>
         <div className='face-back' id='porta-back'></div>
         {/* 뒷 표지 */}

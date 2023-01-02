@@ -1,10 +1,12 @@
-import Diary from './Diary';
+import Diary from '@/components/Diary';
 import styled from 'styled-components';
 
 const Wrap = styled.div`
   width: 100vw;
   height: 100vh;
-  ${({ theme }) => theme.flexSet.flexCenterrow}
+  background: url('/img/bg.png') center no-repeat;
+  background-size: cover;
+  ${({ theme }) => theme.flexSet.flexRowCenter}
 `;
 
 const Layout = () => {

@@ -1,3 +1,9 @@
+const color = {
+  text: `
+    color:#222;
+  `,
+};
+
 const flexSet = {
   flexRowCenter: `
     display:flex;
@@ -17,7 +23,9 @@ const flexSet = {
   align-items: center;
   `,
 };
+
 export const theme = {
   flexSet,
+  color,
 };
 export type Theme = typeof theme;
