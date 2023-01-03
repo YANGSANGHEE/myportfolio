@@ -1,12 +1,12 @@
 import React, { useRef, useCallback, useState, useEffect } from 'react';
 import styled from 'styled-components';
-import PageFront from '@/components/Page_front';
-import PageBack from '@/components/Page_back';
-import PageOne from './Page/Page_1';
-import PageTwo from './Page/Page_2';
-import PageThree from './Page/Page_3';
-import PageFour from './Page/Page_4';
-import PageFive from './Page/Page_5';
+import PageFront from '@/Components/Page_front';
+import PageBack from '@/Components/Page_back';
+import PageOne from '@/Components/Page/Page_1';
+import PageTwo from '@/Components/Page/Page_2';
+import PageThree from '@/Components/Page/Page_3';
+import PageFour from '@/Components/Page/Page_4';
+import PageFive from '@/Components/Page/Page_5';
 
 const DiarySet = styled.div`
   width: 573px;
@@ -82,8 +82,9 @@ const Diary = () => {
   // 돔 제어용 useRef
 
   useEffect(() => {
-    const filp: HTMLCollectionOf<Element> | any =
-      document.getElementsByClassName('book-con');
+    const filp:
+      | HTMLCollectionOf<Element>
+      | any = document.getElementsByClassName('book-con');
     const bookEle: any[] | HTMLDivElement[] = book.current;
 
     let conZindex: number = 2; // 고정인덱스

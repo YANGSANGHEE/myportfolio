@@ -1,4 +1,4 @@
-import Diary from '@/components/Diary';
+import Diary from '@/Components/Diary';
 import styled from 'styled-components';
 
 const Wrap = styled.div`
