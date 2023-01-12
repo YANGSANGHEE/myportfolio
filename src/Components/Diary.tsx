@@ -13,6 +13,7 @@ const DiarySet = styled.div`
   height: 806px;
   position: relative;
   perspective: 2000px;
+  z-index: 2;
   /* 원근법 */
   transition: 1s;
   & > div.book {
@@ -82,9 +83,8 @@ const Diary = () => {
   // 돔 제어용 useRef
 
   useEffect(() => {
-    const filp:
-      | HTMLCollectionOf<Element>
-      | any = document.getElementsByClassName('book-con');
+    const filp: HTMLCollectionOf<Element> | any =
+      document.getElementsByClassName('book-con');
     const bookEle: any[] | HTMLDivElement[] = book.current;
 
     let conZindex: number = 2; // 고정인덱스
